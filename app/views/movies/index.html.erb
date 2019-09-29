@@ -15,7 +15,12 @@
         <td><%= movie.name %></td>
         <td><%= movie.description %></td>
         <td><%= link_to 'Show', movie %></td>
-        <td><%= link_to 'Edit', edit_movie_path(movie) %></td>
+		<td><%= link_to 'Edit', edit_movie_path(movie) %></td>
+		<% if movie.liked_by_user %>
+			<td><%= link_to 'RemoveFromFavorites', remove_from_favorites_path(movie) %></td>
+		<% else %> 
+			<td><%= link_to 'AddToFavorites', add_to_favorites_path(movie) %></td>
+		<% end %>
         <td><%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>

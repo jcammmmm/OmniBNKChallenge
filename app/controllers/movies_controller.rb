@@ -4,7 +4,8 @@ class MoviesController < ApplicationController
   # GET /movies
   # GET /movies.json
   def index
-    @movies = Movie.all
+    # @movies = Movie.all
+    @movies = Movie.all_liked_by(current_user.id)
   end
 
   # GET /movies/1
@@ -59,6 +60,28 @@ class MoviesController < ApplicationController
       format.html { redirect_to movies_url, notice: 'Movie was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  # GET /movies_add_to_favorites/1
+  def addToFavorites
+		user_movie = UserMovie.create(movie_id: params[:id], user_id: current_user.id) # at this point is always guarranteed a login
+		respond_to do |format|
+			format.html { redirect_to movies_url, notice: 'you like this movie!' }
+        	format.json { head :no_content }
+		end
+  end
+
+  # GET /romove_from_favorites/1
+  def removeFromFavorites
+	user_movie = UserMovie.where("user_id = ? and movie_id = ?", current_user.id, params[:id])
+	puts user_movie
+	user_movie.each do |um|
+		um.destroy
+	end
+	respond_to do |format|
+		format.html { redirect_to movies_url, notice: 'you dislike this movie!' }
+        format.json { head :no_content }
+	end
   end
 
   private
