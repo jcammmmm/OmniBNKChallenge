@@ -94,6 +94,10 @@ class MoviesController < ApplicationController
 		end
 	end
 	@recommended_movies = favorite_movies
+	# After add recommendations model then add the genre field in the movie form.
+	# Then compute in this action the most genre viewed of your favorite movies
+	# Then display the first ten movies of that genre
+	# That's the recomendation
   end
 
   private

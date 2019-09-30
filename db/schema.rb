@@ -10,7 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_29_220041) do
+ActiveRecord::Schema.define(version: 2019_09_30_020511) do
+
+  create_table "categories", force: :cascade do |t|
+    t.string "genre"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "movies", force: :cascade do |t|
     t.string "name"
@@ -18,6 +24,8 @@ ActiveRecord::Schema.define(version: 2019_09_29_220041) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "liked_by_user"
+    t.integer "category_id"
+    t.index ["category_id"], name: "index_movies_on_category_id"
   end
 
   create_table "user_movies", force: :cascade do |t|
@@ -41,4 +49,5 @@ ActiveRecord::Schema.define(version: 2019_09_29_220041) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "movies", "categories"
 end
