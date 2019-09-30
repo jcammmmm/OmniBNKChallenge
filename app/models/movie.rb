@@ -17,7 +17,6 @@ class Movie < ApplicationRecord
 					movie.liked_by_user = true
 				end
 			end
-			puts movie.liked_by_user
 		end
 		return movies
 	end
